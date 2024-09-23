@@ -1,0 +1,102 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f7f7f7;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equally spaced columns */
+    gap: 40px; /* Space between the form and cleaned data sections */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Form grid with larger row gaps */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equally spaced columns */
+    gap: 15px;
+    row-gap: 25px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+/* Focus state for input fields */
+input[type="text"]:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+/* Adjust the submit button */
+button {
+    padding: 12px;
+    margin-top: 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Cleaned Data Table Styling */
+table.cleaned-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+}
+
+table.cleaned-data-table, th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+    text-align: left;
+}
+
+td {
+    background-color: #f9f9f9;
+    font-size: 14px;
+}
+/* Full-width container for single-section pages like Documentation */
+.full-container {
+    display: block; /* Removes grid layout */
+    max-width: 1200px; /* Same maximum width as .container */
+    margin: 0 auto; /* Centers the container */
+    padding: 20px; /* Optional: Adds padding for better readability */
+    background-color: #fff; /* Optional: Ensures consistent background */
+    border-radius: 8px; /* Optional: Matches .section styling */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional: Adds subtle shadow */
+}

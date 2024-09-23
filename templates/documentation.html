@@ -1,0 +1,33 @@
+<!-- templates/documentation.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation - Address Cleaning Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Back Button -->
+    <center>
+        <button style="margin-bottom:20px" onclick="location.href='{{ url_for('index') }}'">Back</button>
+    </center>
+    <div class="full-container">
+        <!-- Documentation Content Section -->
+        <div class="section">
+            <h2>Application Documentation</h2>
+            <p>Welcome to the Address Cleaning Form documentation. This application helps you validate and correct address inputs by ensuring that data entered is not misspelled and country names are standardized.</p>
+
+            <h3>How It Works</h3>
+            <ul>
+                <li><strong>Data flow:</strong>First it gusses the standardized country name and ISO code, then it trys to guess the state that may be entered and then city</li>
+                <li><strong>How it gusses:</strong>It uses the GeoNames API to get the list of things within the world/country/state and then it find word from the API data that has the <a href="https://leetcode.com/problems/edit-distance/description/">least edit distance</a> with respect to the word received from the user. </li>
+                <li><strong>Searching constraint:</strong>In order to find the <a href="https://leetcode.com/problems/edit-distance/description/">least edit distance</a>, we require a search space from we pick words the relevant words. That requires us to give some direction to search query from the knowledge graph because for example there can be thousands of cities in a state. So in this case, I first fetch the cities/ states whose first 3 letters match the entered city/ state. This is not the case for countries are they are relatively limited.</li>
+            </ul>
+
+            
+        </div>
+    </div>
+
+</body>
+</html>
