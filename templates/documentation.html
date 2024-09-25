@@ -21,8 +21,8 @@
             <h3>How It Works</h3>
             <ul>
                 <li><strong>Data flow:</strong>First it gusses the standardized country name and ISO code, then it trys to guess the state that may be entered and then city</li>
-                <li><strong>How it gusses:</strong>It uses the GeoNames API to get the list of things within the world/country/state and then it find word from the API data that has the <a href="https://leetcode.com/problems/edit-distance/description/">least edit distance</a> with respect to the word received from the user. </li>
-                <li><strong>Searching constraint:</strong>In order to find the <a href="https://leetcode.com/problems/edit-distance/description/">least edit distance</a>, we require a search space from we pick words the relevant words. That requires us to give some direction to search query from the knowledge graph because for example there can be thousands of cities in a state. So in this case, I first fetch the cities/ states whose first 3 letters match the entered city/ state. This is not the case for countries are they are relatively limited.</li>
+                <li><strong>How it gusses:</strong>It uses the GeoNames API to get the list of things within the world/country/state and then it finds the words from the API data that has the <a href="https://leetcode.com/problems/edit-distance/description/">least edit distance</a> with respect to the word received from the user. </li>
+                <li><strong>Searching constraint:</strong>In order to find the <a href="https://leetcode.com/problems/edit-distance/description/">least edit distance</a>, we require a search space from which we pick the relevant words. That requires us to give some direction to search query from the knowledge graph because for example there can be thousands of cities in a state. So in this case, I first fetch the cities/ states whose first 3 letters match the entered city/ state. This is not the case for countries are they are relatively limited.</li>
             </ul>
 
             
