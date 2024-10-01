@@ -2,6 +2,9 @@
 
 from flask import Flask, render_template, request
 from utils.address_cleaner import clean_address_fields
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -35,4 +38,4 @@ def documentation():
     return render_template('documentation.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5001)
