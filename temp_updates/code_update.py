@@ -45,8 +45,6 @@ def get_country_code(country_name):
 
         return None, None
 
-###########################################################################################################################
-
 def validate_city(city_name, country_code, admin_code=None):
     """
     Validate the city using Neo4j with fuzzy matching.
@@ -96,8 +94,6 @@ def validate_city(city_name, country_code, admin_code=None):
 
         return city_name, False
 
-#######################################################################################################################################
-
 def validate_state(state_name, country_code):
     """
     Validate the state using Neo4j with fuzzy matching.
@@ -129,7 +125,20 @@ def validate_state(state_name, country_code):
 
         return state_name, False, None
 
-###########################################################################################################################
+def get_city_by_coordinates(latitude, longitude):
+    """
+    Retrieve city name using coordinates from Neo4j.
+    """
+    with driver.session() as session:
+        result = session.run("""
+            MATCH (city:City)-[:HAS_COORDINATES]->(co:Coordinates {latitude: $latitude, longitude: $longitude})
+            RETURN city.name AS city_name
+            LIMIT 1
+        """, latitude=latitude, longitude=longitude)
+        record = result.single()
+        if record:
+            return record['city_name']
+        return None
 
 def clean_address_fields(city, state, country):
     """
@@ -149,11 +158,29 @@ def clean_address_fields(city, state, country):
     if not country_code:
         print(f"Proceeding without country code for '{country}'.")
 
+    # Check if city is in coordinates format
+    if '°' in city:
+        # Extract latitude and longitude from the city field
+        try:
+            lat, lon = city.split(',')
+            lat = lat.strip().replace('° N', '').replace('° S', '')
+            lon = lon.strip().replace('° E', '').replace('° W', '')
+            corrected_city = get_city_by_coordinates(lat, lon)
+            if corrected_city:
+                city_valid = True
+            else:
+                corrected_city = city
+                city_valid = False
+        except Exception as e:
+            print(f"Error parsing coordinates: {e}")
+            corrected_city = city
+            city_valid = False
+    else:
+        # Validate and correct the city, passing admin_code to limit the search within the state
+        corrected_city, city_valid = validate_city(city.title(), country_code) if country_code else (city.title(), False)
+
     # Validate and correct the state
     corrected_state, state_valid, admin_code = validate_state(state.title(), country_code) if country_code else (state.title(), False, None)
-
-    # Validate and correct the city, passing admin_code to limit the search within the state
-    corrected_city, city_valid = validate_city(city.title(), country_code, admin_code) if country_code else (city.title(), False)
 
     # Check if both city and state are valid
     if city_valid and state_valid:

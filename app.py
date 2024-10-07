@@ -28,7 +28,7 @@ def index():
             'corrected_state': cleaned_address['corrected_state'],
             'original_country': country,
             'corrected_country': cleaned_address['corrected_country'],
-            'country_code': cleaned_address['country_code'],  # New field
+            'country_code': cleaned_address['country_code'],
         }
     
     return render_template('index.html', cleaned_data=cleaned_data)
